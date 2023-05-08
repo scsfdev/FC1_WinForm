@@ -44,27 +44,7 @@ namespace FC1_WinForm
                 Directory.CreateDirectory(imgDir);
 
 
-            txtCOM.Text = "7";
-        }
-
-
-        private string GetVersion()
-        {
-            System.Reflection.Assembly asm = System.Reflection.Assembly.GetEntryAssembly();
-            return asm.GetName().Version.Major.ToString() + "." + asm.GetName().Version.Minor.ToString() + "." + asm.GetName().Version.Revision.ToString();
-        }
-
-        private void OpenFolder()
-        {
-            var runExplorer = new System.Diagnostics.ProcessStartInfo();
-            runExplorer.FileName = "explorer.exe";
-            runExplorer.Arguments = imgDir;
-            System.Diagnostics.Process.Start(runExplorer);
-        }
-
-        private void Start_Capture()
-        {
-            pr.StartCapture();
+            txtCOM.Text = "3";
         }
 
 
@@ -72,40 +52,16 @@ namespace FC1_WinForm
         private void txtCOM_KeyPress(object sender, KeyPressEventArgs e)
         {
             string strNum = "0123456789";
-            if (!strNum.Contains(e.KeyChar) && e.KeyChar!= 8)
+            if (!strNum.Contains(e.KeyChar) && e.KeyChar != 8)
                 e.Handled = true;
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+
+        private void btnOpen_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCOM.Text))
-                return;
-
-            comPort = int.Parse(txtCOM.Text);
-
-            if (comPort <= 0)
-                return;
-
-            pr.Start(comPort);
-            btnStart.Enabled = false;
-            btnStop.Enabled = true;
-            btnCapture.Enabled = true;
+            OpenFolder();
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            if (pr.Stop())
-                picBox.Image = null;
-
-            btnStart.Enabled = true;
-            btnStop.Enabled = false;
-            btnCapture.Enabled = false;
-        }
-
-        private void btnCapture_Click(object sender, EventArgs e)
-        {
-            Start_Capture();
-        }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
@@ -117,11 +73,73 @@ namespace FC1_WinForm
             Application.Exit();
         }
 
-        private void btnOpen_Click(object sender, EventArgs e)
+
+
+        private void btnConnect_Click(object sender, EventArgs e)
         {
-            OpenFolder();
+            if (string.IsNullOrEmpty(txtCOM.Text))
+                return;
+
+            try
+            {
+                comPort = int.Parse(txtCOM.Text);
+
+                if (comPort <= 0)
+                    return;
+                
+                btnConnect.Enabled = false;
+                btnDisconnect.Visible = btnReadyRead.Visible = btnManualCapture.Visible = btnClear.Visible = true;
+
+                ReadyFC1();          
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
         }
 
+        private void btnDisconnect_Click(object sender, EventArgs e)
+        {
+            if (pr.Stop())
+                picBox.Image = null;
+
+            btnConnect.Enabled = true;
+            btnDisconnect.Visible = btnReadyRead.Visible = btnManualCapture.Visible = btnClear.Visible = false;
+        }
+
+
+        private void btnReadyRead_Click(object sender, EventArgs e)
+        {
+            ReadyFC1();
+
+            // Set scanneer in Ready mode to scan MRZ or any code.
+            pr.ExecuteCommand("R", out string response, 1000);
+        }
+
+        private void btnManualCapture_Click(object sender, EventArgs e)
+        {
+            ReadyFC1();
+            pr.ExecuteCommand("R", out string response, 1000);
+            pr.StartCapture();
+        }
+
+        private void ReadyFC1()
+        {
+            pr.Start(comPort);
+            // Immediately go into Standby Mode to disable any code reading.
+            pr.ExecuteCommand("Z", out string response, 1000);
+        }
+
+        private void OpenFolder()
+        {
+            var runExplorer = new System.Diagnostics.ProcessStartInfo();
+            runExplorer.FileName = "explorer.exe";
+            runExplorer.Arguments = imgDir;
+            System.Diagnostics.Process.Start(runExplorer);
+        }
+
+     
 
         private bool Pr_HideProgress()
         {
@@ -159,21 +177,25 @@ namespace FC1_WinForm
                 Console.WriteLine("Barcode:" + e.ScanData);
                 MessageBox.Show(e.ScanData, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 e.ScanData = "";
+                e.ScanData = null;
             }
+
 
             if (e.Data.Image != null)
             {
                 // There is an image, save it.
-
                 string imgFileName = Path.Combine(imgDir, "FC1_" + DateTime.Now.ToString("yyyymmdd_hhmmss") + ".bmp");
                 Image img = e.Data.Image;
                 img.Save(imgFileName);
                 picBox.Image = img;
             }
 
-            return true;
-        }
+            e.Data = null;
+            e.ScanData = null;
 
-        
+            pr.Stop();
+          
+            return true;
+        }        
     }
 }

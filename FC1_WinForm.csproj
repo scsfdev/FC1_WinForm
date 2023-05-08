@@ -46,7 +46,7 @@
   <ItemGroup>
     <Reference Include="PassportReader, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\dll\FC1\PassportReader.dll</HintPath>
+      <HintPath>..\..\..\Dll\Passport Image Scan Lib v1.2.0\English\Windows\.NET Framework 4.0 (AnyCPU)\PassportReader.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -96,8 +96,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PassportReaderN.dll" />
     <None Include="Resources\Execute.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="x64\PassportReaderN.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\PassportReaderN.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

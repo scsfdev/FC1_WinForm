@@ -28,39 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.btnStart = new System.Windows.Forms.Button();
+            this.btnConnect = new System.Windows.Forms.Button();
             this.txtCOM = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnStop = new System.Windows.Forms.Button();
-            this.btnCapture = new System.Windows.Forms.Button();
+            this.btnDisconnect = new System.Windows.Forms.Button();
+            this.btnManualCapture = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.picBox = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnOpen = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnReadyRead = new System.Windows.Forms.Button();
+            this.tip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnStart
+            // btnConnect
             // 
-            this.btnStart.Location = new System.Drawing.Point(101, 93);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(74, 32);
-            this.btnStart.TabIndex = 0;
-            this.btnStart.Text = "START";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            this.btnConnect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnConnect.Location = new System.Drawing.Point(21, 93);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(90, 32);
+            this.btnConnect.TabIndex = 0;
+            this.btnConnect.Text = "CONNECT";
+            this.btnConnect.UseVisualStyleBackColor = false;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // txtCOM
             // 
+            this.txtCOM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCOM.Location = new System.Drawing.Point(101, 57);
             this.txtCOM.MaxLength = 2;
             this.txtCOM.Name = "txtCOM";
-            this.txtCOM.Size = new System.Drawing.Size(50, 20);
+            this.txtCOM.Size = new System.Drawing.Size(43, 20);
             this.txtCOM.TabIndex = 1;
             this.txtCOM.Text = "7";
+            this.txtCOM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCOM.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCOM_KeyPress);
             // 
             // label1
@@ -72,43 +78,46 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "COM Port:";
             // 
-            // btnStop
+            // btnDisconnect
             // 
-            this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(181, 93);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(74, 32);
-            this.btnStop.TabIndex = 3;
-            this.btnStop.Text = "STOP";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            this.btnDisconnect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnDisconnect.Location = new System.Drawing.Point(21, 131);
+            this.btnDisconnect.Name = "btnDisconnect";
+            this.btnDisconnect.Size = new System.Drawing.Size(90, 32);
+            this.btnDisconnect.TabIndex = 3;
+            this.btnDisconnect.Text = "DISCONNECT";
+            this.btnDisconnect.UseVisualStyleBackColor = false;
+            this.btnDisconnect.Visible = false;
+            this.btnDisconnect.Click += new System.EventHandler(this.btnDisconnect_Click);
             // 
-            // btnCapture
+            // btnManualCapture
             // 
-            this.btnCapture.Enabled = false;
-            this.btnCapture.Location = new System.Drawing.Point(261, 93);
-            this.btnCapture.Name = "btnCapture";
-            this.btnCapture.Size = new System.Drawing.Size(74, 32);
-            this.btnCapture.TabIndex = 4;
-            this.btnCapture.Text = "CAPTURE";
-            this.btnCapture.UseVisualStyleBackColor = true;
-            this.btnCapture.Click += new System.EventHandler(this.btnCapture_Click);
+            this.btnManualCapture.Location = new System.Drawing.Point(311, 93);
+            this.btnManualCapture.Name = "btnManualCapture";
+            this.btnManualCapture.Size = new System.Drawing.Size(132, 32);
+            this.btnManualCapture.TabIndex = 4;
+            this.btnManualCapture.Text = "MANUAL CAPTURE";
+            this.tip.SetToolTip(this.btnManualCapture, "Manually Capture the Image (no code scanning)");
+            this.btnManualCapture.UseVisualStyleBackColor = true;
+            this.btnManualCapture.Visible = false;
+            this.btnManualCapture.Click += new System.EventHandler(this.btnManualCapture_Click);
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(341, 93);
+            this.btnClear.Location = new System.Drawing.Point(478, 131);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(74, 32);
+            this.btnClear.Size = new System.Drawing.Size(90, 32);
             this.btnClear.TabIndex = 5;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Visible = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(421, 93);
+            this.btnExit.Location = new System.Drawing.Point(478, 93);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(74, 32);
+            this.btnExit.Size = new System.Drawing.Size(90, 32);
             this.btnExit.TabIndex = 6;
             this.btnExit.Text = "EXIT";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -119,9 +128,9 @@
             this.picBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.picBox.Location = new System.Drawing.Point(12, 146);
+            this.picBox.Location = new System.Drawing.Point(12, 182);
             this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(556, 420);
+            this.picBox.Size = new System.Drawing.Size(556, 384);
             this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picBox.TabIndex = 7;
             this.picBox.TabStop = false;
@@ -140,7 +149,7 @@
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(341, 47);
+            this.btnOpen.Location = new System.Drawing.Point(311, 50);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(74, 32);
             this.btnOpen.TabIndex = 9;
@@ -151,11 +160,27 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(206, 57);
+            this.label3.Location = new System.Drawing.Point(176, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(129, 13);
             this.label3.TabIndex = 10;
             this.label3.Text = "Image file is saved into -->";
+            // 
+            // btnReadyRead
+            // 
+            this.btnReadyRead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnReadyRead.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReadyRead.ForeColor = System.Drawing.Color.Red;
+            this.btnReadyRead.Location = new System.Drawing.Point(159, 93);
+            this.btnReadyRead.Name = "btnReadyRead";
+            this.btnReadyRead.Size = new System.Drawing.Size(132, 32);
+            this.btnReadyRead.TabIndex = 12;
+            this.btnReadyRead.Text = "READY READ";
+            this.tip.SetToolTip(this.btnReadyRead, "Ready to ready MRZ or Any Code.\r\nIf this is MRZ, image will be also captured.\r\nIf" +
+        " this is normal code, no image will be captured).");
+            this.btnReadyRead.UseVisualStyleBackColor = false;
+            this.btnReadyRead.Visible = false;
+            this.btnReadyRead.Click += new System.EventHandler(this.btnReadyRead_Click);
             // 
             // frmMain
             // 
@@ -163,17 +188,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ClientSize = new System.Drawing.Size(580, 578);
+            this.Controls.Add(this.btnReadyRead);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.picBox);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnClear);
-            this.Controls.Add(this.btnCapture);
-            this.Controls.Add(this.btnStop);
+            this.Controls.Add(this.btnManualCapture);
+            this.Controls.Add(this.btnDisconnect);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtCOM);
-            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.btnConnect);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(596, 616);
             this.Name = "frmMain";
@@ -189,17 +215,19 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.TextBox txtCOM;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.Button btnCapture;
+        private System.Windows.Forms.Button btnDisconnect;
+        private System.Windows.Forms.Button btnManualCapture;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.PictureBox picBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnReadyRead;
+        private System.Windows.Forms.ToolTip tip;
     }
 }
 
